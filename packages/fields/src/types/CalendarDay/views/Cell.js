@@ -1,15 +1,15 @@
 import { format } from 'date-fns';
 
-const CalendarDayCell = ({ data, field: { config } }) => {
+const CalendarDayCell = ({ data, field: { format: formatString } }) => {
   if (!data) {
     return null;
   }
 
-  if (!config.format) {
+  if (!formatString) {
     return data;
   }
 
-  return format(data, config.format);
+  return format(data, formatString);
 };
 
 export default CalendarDayCell;

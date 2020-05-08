@@ -18,7 +18,7 @@ const CalendarDayField = ({ autoFocus, field, value, errors, onChange }) => {
           id={htmlID}
           autoFocus={autoFocus}
           date={value}
-          format={field.config.format}
+          format={field.format}
           onChange={onChange}
         />
       </FieldInput>

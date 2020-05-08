@@ -4,11 +4,13 @@ import { Implementation } from '../../Implementation';
 import { MongooseFieldAdapter } from '@keystonejs/adapter-mongoose';
 import { KnexFieldAdapter } from '@keystonejs/adapter-knex';
 
+const ISO8601 = 'YYYY-MM-DD';
+
 export class CalendarDay extends Implementation {
   constructor(
     path,
     {
-      format = 'YYYY-MM-DD',
+      format = ISO8601,
       yearRangeFrom = new Date().getFullYear() - 100,
       yearRangeTo = new Date().getFullYear(),
     }
@@ -63,12 +65,12 @@ const CommonCalendarInterface = superclass =>
 
 export class MongoCalendarDayInterface extends CommonCalendarInterface(MongooseFieldAdapter) {
   addToMongooseSchema(schema) {
-    const validator = a => typeof a === 'string' && format(parse(a), 'YYYY-MM-DD') === a;
+    const validator = a => typeof a === 'string' && format(parse(a), ISO8601) === a;
     const schemaOptions = {
       type: String,
       validate: {
         validator: this.buildValidator(validator),
-        message: '{VALUE} is not an ISO8601 date string (YYYY-MM-DD)',
+        message: `{VALUE} is not an ISO8601 date string (${ISO8601})`,
       },
     };
     schema.add({ [this.path]: this.mergeSchemaOptions(schemaOptions, this.config) });
@@ -93,7 +95,7 @@ export class KnexCalendarDayInterface extends CommonCalendarInterface(KnexFieldA
   setupHooks({ addPostReadHook }) {
     addPostReadHook(item => {
       if (item[this.path]) {
-        item[this.path] = format(item[this.path], 'YYYY-MM-DD');
+        item[this.path] = format(item[this.path], ISO8601);
       }
       return item;
     });
