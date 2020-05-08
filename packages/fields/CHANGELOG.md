@@ -1,5 +1,11 @@
 # @keystonejs/fields
 
+## 10.0.1
+
+### Patch Changes
+
+- [`54931d75`](https://github.com/keystonejs/keystone/commit/54931d75d3f26f4f300c2c4c3ee65ed3183b4a6a) [#2923](https://github.com/keystonejs/keystone/pull/2923) Thanks [@timleslie](https://github.com/timleslie)! - Updated documentation for the CalendarDay field type.
+
 ## 10.0.0
 
 ### Major Changes
